@@ -1,4 +1,10 @@
 {
+  "dependencies": {
+    "@supabase/supabase-js": "^2.99.3"
+  }
+}
+
+{
   "name": "habit-tracker",
   "version": "0.1.0",
   "private": true,
