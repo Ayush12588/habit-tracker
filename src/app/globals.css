@@ -2,14 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== BASE STYLES ===== */
 body {
-  /* Deep dark gradient background */
   background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
   min-height: 100vh;
 }
 
-/* ===== CUSTOM SCROLLBAR ===== */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -24,12 +21,10 @@ body {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* ===== SMOOTH TRANSITIONS ===== */
 * {
   scroll-behavior: smooth;
 }
 
-/* ===== SELECTION COLOR ===== */
 ::selection {
   background: rgba(168, 85, 247, 0.4);
   color: #fff;

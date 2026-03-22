@@ -1,11 +1,7 @@
 "use client";
 
-// ===== ADD HABIT MODAL =====
-// Simple overlay with a name field and emoji picker grid.
-
 import { useState } from "react";
 
-// A small hand-picked set of emojis (no library needed)
 const EMOJIS = [
   "💪", "🏃", "📚", "💧", "🧘", "😴",
   "🍎", "💊", "✍️", "🎯", "🏋️", "🧹",
@@ -27,18 +23,15 @@ export default function AddHabitModal({ onAdd, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-      {/* Dark backdrop */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
 
-      {/* Modal card */}
       <div className="relative w-full max-w-md backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-2xl">
         <h3 className="text-xl font-bold mb-6">Add New Habit</h3>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name */}
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Habit Name
@@ -55,7 +48,6 @@ export default function AddHabitModal({ onAdd, onClose }) {
             />
           </div>
 
-          {/* Emoji grid */}
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Choose Icon
@@ -78,7 +70,6 @@ export default function AddHabitModal({ onAdd, onClose }) {
             </div>
           </div>
 
-          {/* Action buttons */}
           <div className="flex gap-3 pt-2">
             <button
               type="button"

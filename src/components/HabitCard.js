@@ -1,8 +1,5 @@
 "use client";
 
-// ===== SINGLE HABIT ROW =====
-// Shows icon, name, streak badge, checkmark toggle, and delete.
-
 import { useState } from "react";
 
 export default function HabitCard({
@@ -23,9 +20,7 @@ export default function HabitCard({
       }`}
     >
       <div className="flex items-center justify-between gap-3">
-        {/* Left: toggle + habit info */}
         <div className="flex items-center gap-4 min-w-0">
-          {/* Checkmark button */}
           <button
             onClick={onToggle}
             className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center transition-all duration-300 cursor-pointer ${
@@ -51,7 +46,6 @@ export default function HabitCard({
             )}
           </button>
 
-          {/* Icon + name */}
           <div className="flex items-center gap-2 min-w-0">
             <span className="text-xl shrink-0">{habit.icon}</span>
             <span
@@ -64,7 +58,6 @@ export default function HabitCard({
           </div>
         </div>
 
-        {/* Right: streak + delete */}
         <div className="flex items-center gap-3 shrink-0">
           {streak > 0 && (
             <span className="px-3 py-1 rounded-lg bg-orange-500/10 text-orange-400 text-sm font-medium whitespace-nowrap">
@@ -94,7 +87,6 @@ export default function HabitCard({
         </div>
       </div>
 
-      {/* Delete confirmation row */}
       {confirmDelete && (
         <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-end gap-2">
           <span className="text-sm text-gray-400 mr-auto">

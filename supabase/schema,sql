@@ -1,0 +1,53 @@
+-- =============================================
+--  HabitFlow  –  Database Schema
+--  Run this ONCE in Supabase SQL Editor
+-- =============================================
+
+-- 1. HABITS TABLE
+create table public.habits (
+  id         uuid default gen_random_uuid() primary key,
+  user_id    uuid references auth.users(id) on delete cascade not null,
+  name       text not null,
+  icon       text default '🎯',
+  created_at timestamptz default now()
+);
+
+-- 2. HABIT LOGS TABLE
+create table public.habit_logs (
+  id             uuid default gen_random_uuid() primary key,
+  habit_id       uuid references public.habits(id) on delete cascade not null,
+  user_id        uuid references auth.users(id) on delete cascade not null,
+  completed_date date not null,
+  created_at     timestamptz default now(),
+  unique (habit_id, completed_date)
+);
+
+-- 3. ROW LEVEL SECURITY
+alter table public.habits     enable row level security;
+alter table public.habit_logs enable row level security;
+
+-- Habits policies
+create policy "Users can view own habits"
+  on public.habits for select
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own habits"
+  on public.habits for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can delete own habits"
+  on public.habits for delete
+  using (auth.uid() = user_id);
+
+-- Habit logs policies
+create policy "Users can view own logs"
+  on public.habit_logs for select
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own logs"
+  on public.habit_logs for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can delete own logs"
+  on public.habit_logs for delete
+  using (auth.uid() = user_id);

@@ -1,9 +1,5 @@
 "use client";
 
-// ===== LANDING PAGE =====
-// If the user is already logged in → redirect to /dashboard.
-// Otherwise show a simple hero section with links to login / signup.
-
 import { useAuth } from "@/components/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -13,12 +9,10 @@ export default function Home() {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  // Auto-redirect authenticated users
   useEffect(() => {
     if (!loading && user) router.push("/dashboard");
   }, [user, loading, router]);
 
-  // Show spinner while checking auth
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -30,7 +24,6 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       <div className="text-center max-w-2xl">
-        {/* Logo / Title */}
         <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
           HabitFlow
         </h1>
@@ -41,7 +34,6 @@ export default function Home() {
           Simple tracking. Beautiful design. Zero distractions.
         </p>
 
-        {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/signup"

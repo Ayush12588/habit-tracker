@@ -1,16 +1,10 @@
 "use client";
 
-// ===== AUTH CONTEXT =====
-// Wraps the entire app.  Provides `user` and `loading` to every page
-// so we never have to call getSession manually in components.
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-// Create the context with safe defaults
 const AuthContext = createContext({ user: null, loading: true });
 
-// Custom hook – use this in any component to read auth state
 export const useAuth = () => useContext(AuthContext);
 
 export default function AuthProvider({ children }) {
@@ -18,7 +12,6 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Check if there's already a session (e.g. page refresh)
     const getSession = async () => {
       const {
         data: { session },
@@ -28,7 +21,6 @@ export default function AuthProvider({ children }) {
     };
     getSession();
 
-    // 2. Subscribe to future auth changes (login / logout / token refresh)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -36,7 +28,6 @@ export default function AuthProvider({ children }) {
       setLoading(false);
     });
 
-    // 3. Cleanup on unmount
     return () => subscription.unsubscribe();
   }, []);
 

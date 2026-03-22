@@ -1,7 +1,5 @@
 "use client";
 
-// ===== SIGNUP PAGE =====
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
@@ -17,7 +15,6 @@ export default function Signup() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
 
-  // If already logged in, go to dashboard
   useEffect(() => {
     if (!authLoading && user) router.push("/dashboard");
   }, [user, authLoading, router]);
@@ -27,7 +24,6 @@ export default function Signup() {
     setError("");
     setLoading(true);
 
-    // Basic client-side check
     if (password.length < 6) {
       setError("Password must be at least 6 characters");
       setLoading(false);
@@ -45,7 +41,6 @@ export default function Signup() {
     } else {
       setSuccess(true);
       setLoading(false);
-      // If "Confirm email" is turned OFF in Supabase, user is logged in now
       router.push("/dashboard");
     }
   };
@@ -53,7 +48,6 @@ export default function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        {/* Glass card */}
         <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-8 shadow-2xl">
           <h2 className="text-3xl font-bold mb-2 text-center">
             Create Account
@@ -62,22 +56,19 @@ export default function Signup() {
             Start building better habits today
           </p>
 
-          {/* Error */}
           {error && (
             <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm">
               {error}
             </div>
           )}
 
-          {/* Success (only if email confirmation is required) */}
           {success && (
             <div className="bg-green-500/10 border border-green-500/50 text-green-400 px-4 py-3 rounded-xl mb-6 text-sm">
-              Account created! If email confirmation is on, check your inbox.
+              Account created! Redirecting...
             </div>
           )}
 
           <form onSubmit={handleSignup} className="space-y-5">
-            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Email
@@ -92,7 +83,6 @@ export default function Signup() {
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Password
@@ -108,7 +98,6 @@ export default function Signup() {
               />
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
@@ -118,7 +107,6 @@ export default function Signup() {
             </button>
           </form>
 
-          {/* Link to login */}
           <p className="text-center mt-6 text-gray-400">
             Already have an account?{" "}
             <Link
